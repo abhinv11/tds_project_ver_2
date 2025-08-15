@@ -53,8 +53,18 @@ pip install -r requirements.txt
 Create a `.env` file:
 
 ```env
-GOOGLE_API_KEY=your_google_generative_ai_api_key
-LLM_TIMEOUT_SECONDS=150
+# Google Gemini API Keys (Add 1–10 keys for load balancing if you don't have multiple key just paste your one key in all variable)
+gemini_api_1=your_api_key_here
+gemini_api_2=your_api_key_here
+gemini_api_3=your_api_key_here
+gemini_api_4=your_api_key_here
+gemini_api_5=your_api_key_here
+gemini_api_6=your_api_key_here
+gemini_api_7=your_api_key_here
+gemini_api_8=your_api_key_here
+gemini_api_9=your_api_key_here
+gemini_api_10=your_api_key_here
+LLM_TIMEOUT_SECONDS=240
 ```
 
 ### **4️⃣ Run the App**
