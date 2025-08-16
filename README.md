@@ -70,7 +70,7 @@ LLM_TIMEOUT_SECONDS=240
 ### **4️⃣ Run the App**
 
 ```bash
-python app.py
+python -m uvicorn app:app --reload
 ```
 
 Then open **[http://localhost:8000](http://localhost:8000)** in your browser.
@@ -81,15 +81,10 @@ Then open **[http://localhost:8000](http://localhost:8000)** in your browser.
 
 ### **Step 1: Write Your Questions**
 
-Create a `.txt` file:
+Select Question from test_question file:
 
-```
-What are the top-selling products?
-Find correlation between variable X and Y
-Show sales trends over the last 6 months
-```
 
-### **Step 2: Upload Your Data**
+### **Step 2: Upload Required DataSet for your question if any**
 
 * **Required:** Questions file (`.txt`)
 * **Optional:** Dataset in CSV/Excel/JSON/Parquet/TXT
@@ -159,8 +154,8 @@ Show sales trends over the last 6 months
 
 ## 🚀 **Deployment Options**
 
-* **Local** → `python app.py`
-* **Production** → `gunicorn app:app -w 4 -k uvicorn.workers.UvicornWorker`
+* **Local** → `python -m uvicorn app:app --reload`
+* **Production** → `code in entrypoint.sh`
 * **Docker**
 
 ```dockerfile
@@ -191,4 +186,8 @@ We welcome PRs!
 Licensed under **MIT** — Free to use, modify, and share.
 
 ---
+## 👤 **Author & Credits**
 
+Developed with ❤️ by **[Gaurav Tomar](https://www.linkedin.com/in/gaurav-tomar-630b2a316)**
+
+---
