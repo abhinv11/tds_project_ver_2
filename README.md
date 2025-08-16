@@ -32,8 +32,12 @@ Perfect for **business analysts, researchers, and data enthusiasts** who want **
 | ⚡ **Real-Time Results**     | Progress tracking with fast computations           |
 
 ---
+## 👤 **Author & Credits**
 
-## 🚀 **Quick Start**
+Developed with ❤️ by **[Gaurav Tomar](https://www.linkedin.com/in/gaurav-tomar-630b2a316)**
+
+---
+## 🚀 **Quick Start for more detail read `DEPLOYMENT_GUIDE.md` **
 
 ### **1️⃣ Clone the Repository**
 
@@ -79,9 +83,7 @@ Then open **[http://localhost:8000](http://localhost:8000)** in your browser.
 
 ## 📖 **How to Use**
 
-### **Step 1: Write Your Questions**
-
-Select Question from test_question file:
+### **Step 1: Select Question from test_question file:**
 
 
 ### **Step 2: Upload Required DataSet for your question if any**
@@ -186,8 +188,4 @@ We welcome PRs!
 Licensed under **MIT** — Free to use, modify, and share.
 
 ---
-## 👤 **Author & Credits**
 
-Developed with ❤️ by **[Gaurav Tomar](https://www.linkedin.com/in/gaurav-tomar-630b2a316)**
-
----
