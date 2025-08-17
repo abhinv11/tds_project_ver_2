@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 # TDS Data Analyst Agent
 
 This project is a powerful, autonomous data analyst agent built with FastAPI and powered by Google's Gemini large language models. It can ingest data from various sources, understand natural language questions, and generate Python code to perform data analysis and visualization.
@@ -27,6 +26,7 @@ This project is a powerful, autonomous data analyst agent built with FastAPI and
 
 -   `GET /`: Serves the main `index.html` frontend.
 -   `POST /api`: The main endpoint for data analysis.
+-   `GET /api`: Diagnostics of app.
     -   **Form Data**:
         -   `questions_file`: A `.txt` file containing the questions to be answered.
         -   `data_file` (optional): A data file (`.csv`, `.xlsx`, `.xls`, `.parquet`, `.json`).
@@ -89,5 +89,4 @@ The application will be available at `http://127.0.0.1:8000`.
 
 
 =======
-# tds_project_ver_2
->>>>>>> 40203db5fbc6f8c7b30ec1016cd420becc485276
+
