@@ -1,191 +1,89 @@
+# TDS Data Analyst Agent
 
-# 🌟 **TDS Project 2: Data Analyst Agent** — *AI-Powered Data Sidekick*
+This project is a powerful, autonomous data analyst agent built with FastAPI and powered by Google's Gemini large language models. It can ingest data from various sources, understand natural language questions, and generate Python code to perform data analysis and visualization.
 
-> **A smart, interactive, and beautiful way to analyze your data — powered by Google Generative AI & cutting-edge Python tools.**
-> **Repo:** [📂 View on GitHub](https://github.com/23f1000805/tds-project-2)
+## 🚀 Features
 
----
+- **Multi-format Data Ingestion**: Supports CSV, Excel, Parquet, and JSON data files.
+- **Web Scraping**: Can scrape data from URLs and convert HTML tables into DataFrames.
+- **Natural Language Understanding**: Leverages Gemini LLMs to understand user questions about the data.
+- **Code Generation**: Autonomously writes and executes Python code in a sandboxed environment to answer questions.
+- **Data Visualization**: Generates plots and charts, returning them as base64-encoded images.
+- **Robust LLM Integration**: Features a fallback mechanism for Gemini API keys and models to ensure high availability.
+- **Interactive Frontend**: A simple HTML frontend to interact with the agent.
+- **System Diagnostics**: An endpoint to check system health, dependencies, and network connectivity.
 
-## 📌 **Overview**
+## ⚙️ How It Works
 
-The **TDS Data Analyst Agent** transforms raw data into **actionable insights** in minutes.
-Upload your dataset + questions, and get:
+1.  **Frontend**: A user uploads a data file (optional) and a text file with questions via the `index.html` page.
+2.  **FastAPI Backend**: The `app.py` receives the files.
+3.  **LLM Agent**: The backend constructs a prompt containing the user's questions, a preview of the data (if provided), and a set of rules. This is sent to the Gemini LLM.
+4.  **Code Generation**: The LLM returns a JSON object containing Python code designed to answer the questions using the provided data.
+5.  **Sandboxed Execution**: The Python code is executed in a secure, temporary environment with necessary libraries like `pandas` and `matplotlib`. If the code requires scraping a URL, the backend does this first and injects the resulting DataFrame.
+6.  **Results**: The results of the code execution, including any generated plots, are sent back to the user as a JSON response.
 
-* 📊 **Interactive Visualizations**
-* 🧠 **AI-Driven Insights**
-* ⚡ **Automated Analysis Workflows**
+## API Endpoints
 
-Perfect for **business analysts, researchers, and data enthusiasts** who want **fast, accurate, and beautiful results** without manual crunching.
+-   `GET /`: Serves the main `index.html` frontend.
+-   `POST /api`: The main endpoint for data analysis.
+    -   **Form Data**:
+        -   `questions_file`: A `.txt` file containing the questions to be answered.
+        -   `data_file` (optional): A data file (`.csv`, `.xlsx`, `.xls`, `.parquet`, `.json`).
+-   `GET /diagnostics`: Provides a detailed diagnostics report of the application's environment.
+-   `GET /favicon.ico`: Serves the application's favicon.
 
----
+## 📦 Setup and Running the Application
 
-## ✨ **Features at a Glance**
+### Prerequisites
 
-| Feature                     | Description                                        |
-| --------------------------- | -------------------------------------------------- |
-| 🔍 **Intelligent Analysis** | Understands your data using Google's Generative AI |
-| 📈 **Dynamic Charts**       | Visualizes data with Matplotlib & Seaborn          |
-| 🌐 **Web Scraping**         | Pulls data from URLs in seconds                    |
-| 📁 **Multi-Format Support** | Works with CSV, Excel, JSON, Parquet, TXT          |
-| 🔄 **Batch Processing**     | Answers multiple questions in one go               |
-| 🎨 **Modern UI**            | Clean, responsive, and beginner-friendly           |
-| ⚡ **Real-Time Results**     | Progress tracking with fast computations           |
+-   Python 3.8+
+-   An environment with the packages from `requirements.txt` installed.
+-   Google Gemini API keys set as environment variables (`gemini_api_1`, `gemini_api_2`, etc.).
 
----
-## 👤 **Author & Credits**
+### Installation
 
-Developed with ❤️ by **[Gaurav Tomar](https://www.linkedin.com/in/gaurav-tomar-630b2a316)**
+1.  **Clone the repository:**
+    ```bash
+    git clone <repository-url>
+    cd tds-project-2
+    ```
 
----
-## 🚀 **Quick Start for more detail read `DEPLOYMENT_GUIDE.md` **
+2.  **Create a virtual environment and activate it:**
+    ```bash
+    python -m venv venv
+    source venv/bin/activate  # On Windows use `venv\Scripts\activate`
+    ```
 
-### **1️⃣ Clone the Repository**
+3.  **Install the dependencies:**
+    ```bash
+    pip install -r requirements.txt
+    ```
 
-```bash
-git clone https://github.com/23f1000805/tds-project-2.git
-cd tds-project-2
-```
+4.  **Set up your environment variables:**
+    Create a `.env` file in the root directory and add your Gemini API keys:
+    ```
+    gemini_api_1="YOUR_GEMINI_API_KEY_1"
+    gemini_api_2="YOUR_GEMINI_API_KEY_2"
+    # Add more keys if you have them
+    ```
 
-### **2️⃣ Install Dependencies**
+### Running the Application
 
-```bash
-pip install -r requirements.txt
-```
-
-### **3️⃣ Set Environment Variables**
-
-Create a `.env` file:
-
-```env
-# Google Gemini API Keys (Add 1–10 keys for load balancing if you don't have multiple key just paste your one key in all variable)
-gemini_api_1=your_api_key_here
-gemini_api_2=your_api_key_here
-gemini_api_3=your_api_key_here
-gemini_api_4=your_api_key_here
-gemini_api_5=your_api_key_here
-gemini_api_6=your_api_key_here
-gemini_api_7=your_api_key_here
-gemini_api_8=your_api_key_here
-gemini_api_9=your_api_key_here
-gemini_api_10=your_api_key_here
-LLM_TIMEOUT_SECONDS=240
-```
-
-### **4️⃣ Run the App**
+Use `uvicorn` to run the FastAPI server:
 
 ```bash
-python -m uvicorn app:app --reload
+uvicorn app:app --reload
 ```
 
-Then open **[http://localhost:8000](http://localhost:8000)** in your browser.
+The application will be available at `http://127.0.0.1:8000`.
 
----
+## 📁 File Structure
 
-## 📖 **How to Use**
+-   `app.py`: The core FastAPI application logic.
+-   `index.html`: The simple web interface for the application.
+-   `requirements.txt`: A list of the Python packages required to run the project.
+-   `Dockerfile`, `Procfile`, `entrypoint.sh`, `runtime.txt`: Files for containerization and deployment (e.g., on Heroku).
+-   `test_question/`: Directory containing sample data and questions for testing different scenarios.
+-   `README.md`: This file.
 
-### **Step 1: Select Question from test_question file:**
-
-
-### **Step 2: Upload Required DataSet for your question if any**
-
-* **Required:** Questions file (`.txt`)
-* **Optional:** Dataset in CSV/Excel/JSON/Parquet/TXT
-
-### **Step 3: Get Your Insights**
-
-* 🧮 **Processed by AI**
-* 📊 **Visualized beautifully**
-* 💡 **Actionable recommendations generated**
-
----
-
-## 🛠 **Tech Stack**
-
-**Backend**
-
-* FastAPI 🚀 (Ultra-fast web framework)
-* LangChain 🧠 (LLM orchestration)
-* Google Generative AI ✨ (Smart insights)
-* Pandas + NumPy 📊 (Data manipulation)
-* Matplotlib + Seaborn 🎨 (Visualizations)
-
-**Frontend**
-
-* HTML5, CSS3, JavaScript
-* Bootstrap-inspired styling for a professional look
-
----
-
-## 🔧 **API Endpoints**
-
-| Method | Endpoint   | Description                |
-| ------ | ---------- | -------------------------- |
-| `GET`  | `/`        | Main web interface         |
-| `POST` | `/api` | Process questions + data   |
-| `GET` | `/summary`  | Advanced Diagnosis of app |
-
----
-
-## 📂 **Supported Data Formats**
-
-| Format  | Extensions      |
-| ------- | --------------- |
-| CSV     | `.csv`          |
-| Excel   | `.xlsx`, `.xls` |
-| JSON    | `.json`         |
-| Parquet | `.parquet`      |
-| Text    | `.txt`          |
-
----
-
-## 🎯 **Use Cases**
-
-* **Business Intelligence** – Sales trends, customer insights
-* **Research** – Statistical summaries, hypothesis testing
-* **Data Science** – EDA, feature analysis, anomaly detection
-
----
-
-## 🔒 **Security**
-
-* Local data processing (no cloud storage)
-* Environment variable protection for API keys
-* Configurable CORS for production environments
-
----
-
-## 🚀 **Deployment Options**
-
-* **Local** → `python -m uvicorn app:app --reload`
-* **Production** → `code in entrypoint.sh`
-* **Docker**
-
-```dockerfile
-FROM python:3.9-slim
-WORKDIR /app
-COPY requirements.txt .
-RUN pip install -r requirements.txt
-COPY . .
-EXPOSE 8000
-CMD ["python", "app.py"]
-```
-
----
-
-## 🤝 **Contributing**
-
-We welcome PRs!
-
-1. Fork the repo
-2. Create a branch: `git checkout -b feature-name`
-3. Commit + push
-4. Submit PR 🚀
-
----
-
-## 📜 **License**
-
-Licensed under **MIT** — Free to use, modify, and share.
-
----
 
